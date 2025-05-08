@@ -1,1 +1,63 @@
-# Proposal
+# Proposal: Raul's Points Tracker
+
+## MVPs / User Stories
+### Non Admin
+- As a user, I want to register for an account, so that I can log in and track my points.
+- As a user, I want to log in using a username and password.
+- As a user, I want to view my total points on my profile.
+- As a user, I want to view my full point history with optional context and timestamps.
+- As a user, I want to update my profile info (username, bio, password, profile pic).
+- As a user, I want to view the leaderboard to compare my points with others.
+- As a user, I want to view only my cohort’s leaderboard to compare fairly.
+
+### Admin
+- As an admin, I want to assign users to cohorts.
+- As an admin, I want to give points to any user (optionally with context).
+- As an admin, I want to remove or edit a user’s point entry.
+- As an admin, I want to view, search, and filter all users by cohort.
+
+## ERD
+![ERD](./pictures/rauls_points_erd.png)
+
+## Route Table
+### Public Routes
+| HTTP Method | URLS | Description |
+| ----------- | ----- | ----------- |
+| GET | "/" | leaderboard homepage
+| GET | "/users/register/" | register form
+| POST | "/users/register/" | create user
+| GET | "/users/login/" | login form
+| POST | "/users/login/" | session auth
+| POST | "/users/logout/" | exit session
+### Authenticated User Routes 
+| HTTP Method | URLS | Description |
+| ----------- | ----- | ----------- |
+| GET | "/points/dashboard/" | recent timeline of points
+| GET | "/points/profile/" | shows user profile
+| POST | "points/profile/update/" | edit user profile (non-admin users only)
+| GET | "/points/history/" | view own history/timeline (non-admin users only)
+| GET | "/points/leaderboard/" | view leaderboard
+### Admin-Only Routes
+| HTTP Method | URLS | Description |
+| ----------- | ----- | ----------- |
+| GET | "/admin/" | admin panel
+| POST | "/admin/assign-cohort/" | assign users to cohorts
+| POST | "/admin/award-point/" | award user a point
+| POST | "/admin/delete-point/" | remove a user's points
+| GET | "/admin/user-search/" | searchbar to find users
+
+## Wireframes
+
+## Component Hierarchy Diagram
+![Component Hierarchy Diagram](./pictures/components_diagram.jpg)
+
+## Timetable / Schedule
+
+
+## Stretch Goals
+### User Stories
+- As a user, I want to receive badges for milestones (e.g., 100 points).
+- As a user, I want to leave positive shout-outs on other users’ profiles.
+- As a user, I want to view my badge collection on my profile.
+- As an admin, I want to filter leaderboards by cohort/date.
+- As a user, I want to view all-time, daily, and cohort-specific leaderboards.
