@@ -25,10 +25,10 @@
 |-------------|------------------|----------------------------------------------|
 | post        | /users/register/ | register a user                              |
 | post        | /users/login/    | login a user                                 |
-| get         | /profile/:id/    | indivdual user profile                       |
-| put         | /profile/:id/    | edit a profile                               |
-| delete      | /profile/:id/    | delete a profile                             |
-| post        | /admin/          | give user points (pass user id through body) |
+| get         | /profile/:id/?LeaderBoard=trueOrFalse&Cohort=cohortName&TimeFrame=timeFrame    | indivdual user profile                       |
+| put         | /profile/:id/?LeaderBoard=trueOrFalse&Cohort=cohortName&TimeFrame=timeFrame     | edit a profile                               |
+| delete      | /profile/:id/?LeaderBoard=trueOrFalse&Cohort=cohortName&TimeFrame=timeFrame     | delete a profile                             |
+| post        | /pointEvent/          | give user points (pass user id through body) |
 | get         | /profiles/       | get all users (query for set amount)         |
 
 ## Wireframes
