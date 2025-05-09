@@ -32,10 +32,8 @@
 ### Authenticated User Routes 
 | HTTP Method | URLS | Description |
 | ----------- | ----- | ----------- |
-| GET | "/points/dashboard/" | recent timeline of points
 | GET | "/points/profile/" | shows user profile
-| POST | "points/profile/update/" | edit user profile (non-admin users only)
-| GET | "/points/history/" | view own history/timeline (non-admin users only)
+| POST | "/points/profile/update/" | edit user profile (non-admin users only)
 | GET | "/points/leaderboard/" | view leaderboard
 ### Admin-Only Routes
 | HTTP Method | URLS | Description |
