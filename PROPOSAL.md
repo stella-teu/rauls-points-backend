@@ -21,24 +21,15 @@
 
 ## Route Table
 ### Public Routes
-| HTTP Method | URLS | Description |
-| ----------- | ----- | ----------- |
-| POST | "/users/register/" | create user
-| GET | "/users/login/" | login form
-### Authenticated User Routes 
-| HTTP Method | URLS | Description |
-| ----------- | ----- | ----------- |
-| GET | "/points/profile/:id" | shows user profile
-| POST | "/points/profile/:id/update/" | edit user profile (non-admin users only)
-| GET | "/points/leaderboard/" | view leaderboard
-### Admin-Only Routes
-| HTTP Method | URLS | Description |
-| ----------- | ----- | ----------- |
-| GET | "/admin/" | admin panel
-| POST | "/admin/assign-cohort/" | assign users to cohorts
-| POST | "/admin/award-point/" | award user a point
-| POST | "/admin/delete-point/" | remove a user's points
-| GET | "/admin/user-search/" | searchbar to find users
+| http method | path             | purpose                                      |
+|-------------|------------------|----------------------------------------------|
+| post        | /users/register/ | register a user                              |
+| post        | /users/login/    | login a user                                 |
+| get         | /profile/:id/    | indivdual user profile                       |
+| put         | /profile/:id/    | edit a profile                               |
+| delete      | /profile/:id/    | delete a profile                             |
+| post        | /admin/          | give user points (pass user id through body) |
+| get         | /profiles/       | get all users (query for set amount)         |
 
 ## Wireframes
 ![Landing Page](./pictures/landing_page_wireframe.jpeg)
