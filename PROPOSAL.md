@@ -17,7 +17,7 @@
 - As an admin, I want to view, search, and filter all users by cohort.
 
 ## ERD
-![ERD](./pictures/rauls_points_erd.png)
+![ERD](./pictures/ERD.jpeg)
 
 ## Route Table
 ### Public Routes
