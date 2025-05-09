@@ -21,13 +21,15 @@
 
 ## Route Table
 ### Public Routes
-| day       | goal                                   |
-|-----------|----------------------------------------|
-| monday    | finish labs                            |
-| tuesday   | proposal                               |
-| wednesday | setup make auth sign in functionality  |
-| thursday  | finish the rest of the logic and ejs   |
-| friday    | css styling                            |
+| http method | path             | purpose                                      |
+|-------------|------------------|----------------------------------------------|
+| post        | /users/register/ | register a user                              |
+| post        | /users/login/    | login a user                                 |
+| get         | /profile/:id/    | indivdual user profile                       |
+| put         | /profile/:id/    | edit a profile                               |
+| delete      | /profile/:id/    | delete a profile                             |
+| post        | /admin/          | give user points (pass user id through body) |
+| get         | /profiles/       | get all users (query for set amount)         |
 
 ## Wireframes
 ![Landing Page](./pictures/landing_page_wireframe.jpeg)
