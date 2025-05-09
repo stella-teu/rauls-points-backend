@@ -23,17 +23,13 @@
 ### Public Routes
 | HTTP Method | URLS | Description |
 | ----------- | ----- | ----------- |
-| GET | "/" | leaderboard homepage
-| GET | "/users/register/" | register form
 | POST | "/users/register/" | create user
 | GET | "/users/login/" | login form
-| POST | "/users/login/" | session auth
-| POST | "/users/logout/" | exit session
 ### Authenticated User Routes 
 | HTTP Method | URLS | Description |
 | ----------- | ----- | ----------- |
-| GET | "/points/profile/" | shows user profile
-| POST | "/points/profile/update/" | edit user profile (non-admin users only)
+| GET | "/points/profile/:id" | shows user profile
+| POST | "/points/profile/:id/update/" | edit user profile (non-admin users only)
 | GET | "/points/leaderboard/" | view leaderboard
 ### Admin-Only Routes
 | HTTP Method | URLS | Description |
@@ -50,7 +46,7 @@
 ![Log In Page](./pictures/log_in_wireframe.jpeg)
 ![Profile  Page](./pictures/profile_wireframe.jpeg)
 ![Leaderboard Page](./pictures/leaderboard_wireframe.jpeg)
-![Admin Page](./pictures/admin_panel_wireframe.jpeg)
+![Admin Page](./pictures/admin_panel.jpeg)
 
 ## Component Hierarchy Diagram
 ![Component Hierarchy Diagram](./pictures/components_hiearchy.jpg)
