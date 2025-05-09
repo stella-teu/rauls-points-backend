@@ -21,24 +21,13 @@
 
 ## Route Table
 ### Public Routes
-| HTTP Method | URLS | Description |
-| ----------- | ----- | ----------- |
-| POST | "/users/register/" | create user
-| GET | "/users/login/" | login form
-### Authenticated User Routes 
-| HTTP Method | URLS | Description |
-| ----------- | ----- | ----------- |
-| GET | "/points/profile/:id" | shows user profile
-| POST | "/points/profile/:id/update/" | edit user profile (non-admin users only)
-| GET | "/points/leaderboard/" | view leaderboard
-### Admin-Only Routes
-| HTTP Method | URLS | Description |
-| ----------- | ----- | ----------- |
-| GET | "/admin/" | admin panel
-| POST | "/admin/assign-cohort/" | assign users to cohorts
-| POST | "/admin/award-point/" | award user a point
-| POST | "/admin/delete-point/" | remove a user's points
-| GET | "/admin/user-search/" | searchbar to find users
+| day       | goal                                   |
+|-----------|----------------------------------------|
+| monday    | finish labs                            |
+| tuesday   | proposal                               |
+| wednesday | setup make auth sign in functionality  |
+| thursday  | finish the rest of the logic and ejs   |
+| friday    | css styling                            |
 
 ## Wireframes
 ![Landing Page](./pictures/landing_page_wireframe.jpeg)
