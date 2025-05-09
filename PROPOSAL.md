@@ -53,7 +53,7 @@
 ![Admin Page](./pictures/admin_panel_wireframe.jpeg)
 
 ## Component Hierarchy Diagram
-![Component Hierarchy Diagram](./pictures/components_diagram.jpg)
+![Component Hierarchy Diagram](./pictures/components_hiearchy.jpg)
 
 ### Timeline-Daily accountability
 | Day       |   | Task                        | Blockers | Notes/Thoughts |
