@@ -45,6 +45,12 @@
 | GET | "/admin/user-search/" | searchbar to find users
 
 ## Wireframes
+![Landing Page](./pictures/landing_page_wireframe.jpeg)
+![Register Page](./pictures/register_wireframes.jpeg)
+![Log In Page](./pictures/log_in_wireframe.jpeg)
+![Profile  Page](./pictures/profile_wireframe.jpeg)
+![Leaderboard Page](./pictures/leaderboard_wireframe.jpeg)
+![Admin Page](./pictures/admin_panel_wireframe.jpeg)
 
 ## Component Hierarchy Diagram
 ![Component Hierarchy Diagram](./pictures/components_diagram.jpg)
