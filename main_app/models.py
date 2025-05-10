@@ -1,5 +1,6 @@
 from django.db import models
-# from pillow import ImageField
+from datetime import date
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -11,22 +12,20 @@ class Cohort (models.Model):
         return self.name
 
 class Profile(models.Model):
-    # user_id = models.ForeignKey()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    cohort = models.ForeignKey(Cohort, on_delete=models.CASCADE)
     bio = models.CharField(max_length=250)
-    # profile_pic = models.ImageField()
+    # profile_pic = models.ImageField(upload_to="profile_pics/", blank=True, null=True)
     is_admin = models.BooleanField()
-    cohort_id = models.ForeignKey(Cohort, on_delete=models.CASCADE)
-    created_at = models.TimeField()
-    updated_at = models.TimeField()
     
     def __str__(self):
-        return self.name
+        return self.user.username
 
 class PointEvent(models.Model):
-    profile_id = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     value = models.IntegerField()
     context = models.CharField(max_length = 100)
-    created_at = models.TimeField()
+    created_at = models.DateField(auto_now_add=True)
     
     def __str__(self):
-        return self.value
+        return self.profile.user.username
