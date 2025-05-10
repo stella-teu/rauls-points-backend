@@ -18,6 +18,7 @@ class Profile(models.Model):
     is_admin = models.BooleanField()
     
     def __str__(self):
+        
         return self.user.username
 
 class PointEvent(models.Model):
