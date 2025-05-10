@@ -26,10 +26,10 @@
 | post        | /users/register/ | register a user                              |
 | post        | /users/login/    | login a user                                 |
 | get         | /profile/:id/?LeaderBoard=trueOrFalse&Cohort=cohortName&TimeFrame=timeFrame    | indivdual user profile                       |
-| put         | /profile/:id/?LeaderBoard=trueOrFalse&Cohort=cohortName&TimeFrame=timeFrame     | edit a profile                               |
-| delete      | /profile/:id/?LeaderBoard=trueOrFalse&Cohort=cohortName&TimeFrame=timeFrame     | delete a profile                             |
-| post        | /pointEvent/          | give user points (pass user id through body) |
-| get         | /profiles/       | get all users (query for set amount)         |
+| put / delete       | /profile/:id/    | edit and delete a profile                               |
+| get         | /profile/:id/point/ | shows user points |
+| post        | /profile/:id/point/     | give user points (pass user id through body) |
+| get         | /profile/       | get all users (query for set amount)         |
 
 ## Wireframes
 ![Landing Page](./pictures/landing_page_wireframe.jpeg)
