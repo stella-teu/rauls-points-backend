@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 
 class Cohort (models.Model):
     name = models.CharField(max_length=50)
-    # created_at = models.TimeField()
     
     def __str__(self):
         return self.name
@@ -18,7 +17,7 @@ class Profile(models.Model):
     # profile_pic = models.ImageField(upload_to="profile_pics/", blank=True, null=True)
     is_admin = models.BooleanField()
     
-    def __str__(self):
+    def __str__(self):   
         return self.user.username
 
 class PointEvent(models.Model):
