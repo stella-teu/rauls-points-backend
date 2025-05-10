@@ -17,8 +17,7 @@ class Profile(models.Model):
     # profile_pic = models.ImageField(upload_to="profile_pics/", blank=True, null=True)
     is_admin = models.BooleanField()
     
-    def __str__(self):
-        
+    def __str__(self):   
         return self.user.username
 
 class PointEvent(models.Model):
