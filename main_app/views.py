@@ -75,6 +75,37 @@ class ProfilesListView(generics.ListAPIView):
   serializer_class = ProfileSerializer
   permission_classes = [permissions.IsAuthenticated]
 
+class ProfileDetail(generics.RetrieveUpdateDestroyAPIView):
+  serializer_class = ProfileSerializer
+  permission_classes = [permissions.IsAuthenticated]
+  lookup_field = 'id'
+  
+  def get_queryset(self):
+    user = self.request.user
+    return Profile.objects.filter(user=user)  
+  
+  def retrieve(self, request, *args, **kwargs):
+    instance = self.get_object()
+    serializer = self.get_serializer(instance)
+    return Response({
+      "profile" : serializer.data
+    })
+  
+  def perform_update(self, serializer):
+    profile = self.get_object()
+    if profile.user != self.request.user:
+      raise PermissionDenied[{"Message" : "You do not have permission to edit this profile"}]
+    serializer.save()
+  
+  def perform_destroy(self, instance):
+    profile = self.get_object()
+    if profile.user != self.request.user:
+      raise PermissionDenied[{"Message" : "You do not have permission to edit this profile"}]
+    profile.user.delete()
+    instance.delete()
+    
+
+
   
 # class PointEventListCreate(APIView):
 #   permission_classes = [permissions.IsAuthenticated]
