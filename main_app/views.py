@@ -103,24 +103,21 @@ class ProfileDetail(generics.RetrieveUpdateDestroyAPIView):
       raise PermissionDenied[{"Message" : "You do not have permission to edit this profile"}]
     profile.user.delete()
     instance.delete()
-    
 
-
-  
-# class PointEventListCreate(APIView):
-#   permission_classes = [permissions.IsAuthenticated]
-#   def get(self, request, id):
-#     profile=get_object_or_404(Profile, id=id)
-#     points=PointEvent.objects.filter(profile=profile)
-#     return Response ({
-#       "points": PointEventSerializer(points).data,
-
-#     })
-#   # def post(self, request):
-
-
-# class PointEventUpdate(APIView):
-#   permission_classes = [permissions.IsAuthenticated]
-
-# class ProfileViewUpdate(APIView):
-#     permission_classes = [permissions.IsAuthenticated]
+class PointEventUpdate(APIView):
+  permission_classes = [permissions.IsAuthenticated]
+  def post(self, request, id):
+    profile = get_object_or_404(Profile, id=id)
+    request_profile = get_object_or_404(Profile, user=request.user)
+    if not request_profile.is_admin:
+      raise PermissionDenied("Only admins can award points.")
+    value = request.data.get('value')
+    context = request.data.get('context', '')
+    if value is None or not str(value).isdigit():
+      return Response({"error": "Points value must be provided and must be an integer."}, status=400)
+    event = PointEvent.objects.create(
+      profile=profile,
+      value=int(value),
+      context=context
+    )
+    return Response(PointEventSerializer(event).data, status=201)
