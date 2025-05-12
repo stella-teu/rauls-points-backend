@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     # 'pillow',
     'rest_framework',
   	'main_app',
-     
 ]
 
 MIDDLEWARE = [
