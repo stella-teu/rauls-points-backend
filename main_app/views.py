@@ -9,8 +9,8 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from .models import Profile, Cohort, PointEvent
-from .serializer import UserSerializer, CohortSerializer, PointEventSerializer, PointEventWriteSerializer, ProfileSerializer, ProfileWriteSerializer
-
+from .serializer import UserSerializer, CohortSerializer, PointEventSerializer, ProfileSerializer
+from django.shortcuts import get_object_or_404
 
 # Define the home view
 class Home(APIView):
@@ -25,29 +25,39 @@ class CreateUser(generics.CreateAPIView):
     response = super().create(request, *args, **kwargs)
     user = User.objects.get(username=response.data["username"])
     default_cohort = Cohort.objects.first()
-    Profile.objects.create(user=user,cohort=default_cohort,bio="",is_admin=False)
+    profile = Profile.objects.create(user=user,cohort=default_cohort,bio="",is_admin=False)
     refresh = RefreshToken.for_user(user)
     return Response ({
       "refresh": str(refresh),
       "access": str(refresh.access_token),
-      "user": response.data,
+      "profile": ProfileSerializer(profile).data
     })
   
 class LoginUser(APIView):
   permission_classes = [permissions.AllowAny]
-  def post(self,request):
+
+  def post(self, request):
     username = request.data.get("username")
     password = request.data.get("password")
-    user=authenticate(username=username,password=password)
-    if user:
-      refresh=RefreshToken.for_user(user)
-      return Response ({
-        "refresh": str(refresh),
-        "access": str(refresh.access_token),
-        "user": UserSerializer(user).data,
-      })
-    return Response ({"Error":"Invalid Credentials"},status=status.HTTP_401_UNAUTHORIZED)
-  
+    user = authenticate(username=username, password=password)
+    print("User: ", user)
+    if not user:
+      return Response({"Error": "Invalid Credentials"}, status=status.HTTP_401_UNAUTHORIZED)
+
+    try:
+      profile = Profile.objects.get(user=user)
+      profile_data = ProfileSerializer(profile).data
+    except Profile.DoesNotExist:
+      profile_data = None  # or return a default, or create one if needed
+
+    refresh = RefreshToken.for_user(user)
+    return Response({
+      "refresh": str(refresh),
+      "access": str(refresh.access_token),
+      "profile": profile_data
+    })
+    
+
 class VerifyUser(APIView):
   permission_classes = [permissions.IsAuthenticated]
   def post(self,request):
@@ -58,5 +68,28 @@ class VerifyUser(APIView):
         "access": str(refresh.access_token),
         "user": UserSerializer(user).data,
       })
-    
+
+
+class ProfilesListView(generics.ListAPIView):
+  queryset = Profile.objects.all()
+  serializer_class = ProfileSerializer
+  permission_classes = [permissions.IsAuthenticated]
+
   
+# class PointEventListCreate(APIView):
+#   permission_classes = [permissions.IsAuthenticated]
+#   def get(self, request, id):
+#     profile=get_object_or_404(Profile, id=id)
+#     points=PointEvent.objects.filter(profile=profile)
+#     return Response ({
+#       "points": PointEventSerializer(points).data,
+
+#     })
+#   # def post(self, request):
+
+
+# class PointEventUpdate(APIView):
+#   permission_classes = [permissions.IsAuthenticated]
+
+# class ProfileViewUpdate(APIView):
+#     permission_classes = [permissions.IsAuthenticated]
