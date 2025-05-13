@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path
 from .views import Home, CreateUser, LoginUser, ProfilesListView, ProfileDetail, PointEventUpdate
 
@@ -8,5 +10,5 @@ urlpatterns = [
   path('profiles/', ProfilesListView.as_view(), name='profiles-list-create'), 
   path('profiles/<int:id>', ProfileDetail.as_view(), name="profile-detail"),
   path('profiles/<int:id>/points',PointEventUpdate.as_view(), name="update-points"),
-  # get        /profiles/?LeaderBoard=trueOrFalse&Cohort=cohortName&TimeFrame=timeFrame
-]
+] 
+# + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

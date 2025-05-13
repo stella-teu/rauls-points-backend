@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.db.models import Sum
+
 
 # Create your views here.
 from rest_framework.views import APIView
@@ -71,9 +73,26 @@ class VerifyUser(APIView):
 
 
 class ProfilesListView(generics.ListAPIView):
-  queryset = Profile.objects.all()
   serializer_class = ProfileSerializer
   permission_classes = [permissions.IsAuthenticated]
+  
+  def get_queryset(self):
+        queryset = Profile.objects.filter(is_admin=False).select_related('user', 'cohort')
+
+        # Optional filter by cohort name
+        cohort_name = self.request.query_params.get("cohort")
+        if cohort_name:
+            queryset = queryset.filter(cohort__name__iexact=cohort_name)
+
+        # Leaderboard flag
+        leaderboard = self.request.query_params.get("leaderboard")
+        if leaderboard and leaderboard.lower() == "true":
+            queryset = (
+                queryset
+                .annotate(total_points_agg=Sum('pointevent__value'))
+                .order_by('-total_points_agg')
+            )[:10]  # top 10
+        return queryset
 
 class ProfileDetail(generics.RetrieveUpdateDestroyAPIView):
   serializer_class = ProfileSerializer

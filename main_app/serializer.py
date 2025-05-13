@@ -35,13 +35,11 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def get_total_points(self, obj):
+        # Use annotation if it exists
+        if hasattr(obj, 'total_points_agg') and obj.total_points_agg is not None:
+            return obj.total_points_agg
+        # Fall back to model method if no annotation
         return obj.total_points()
-
-
-# class ProfileWriteSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Profile
-#         fields = ['bio', 'cohort']
 
 class PointEventSerializer(serializers.ModelSerializer):
     profile_username = serializers.CharField(source='profile.user.username', read_only=True)
@@ -50,8 +48,3 @@ class PointEventSerializer(serializers.ModelSerializer):
     class Meta:
         model = PointEvent
         fields = ['id', 'value', 'context', 'created_at', 'profile_username']
-
-# class PointEventWriteSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = PointEvent
-#         fields = ['profile', 'value', 'context']
