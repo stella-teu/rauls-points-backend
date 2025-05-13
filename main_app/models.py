@@ -15,7 +15,7 @@ class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     cohort = models.ForeignKey(Cohort, on_delete=models.CASCADE)
     bio = models.CharField(max_length=250)
-    # profile_pic = models.ImageField(upload_to="images/", default="images/default_profile_pic.jpeg", blank=True, null=True)
+    profile_pic = models.ImageField(upload_to="images/", default="images/default_profile_pic.jpeg", blank=True, null=True)
     is_admin = models.BooleanField()
     
     def total_points(self):
