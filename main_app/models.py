@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Sum
 from datetime import date
 from django.contrib.auth.models import User
 
@@ -16,6 +17,9 @@ class Profile(models.Model):
     bio = models.CharField(max_length=250)
     # profile_pic = models.ImageField(upload_to="profile_pics/", blank=True, null=True)
     is_admin = models.BooleanField()
+    
+    def total_points(self):
+        return self.pointevent_set.aggregate(total=Sum('value'))['total'] or 0
     
     def __str__(self):   
         return self.user.username

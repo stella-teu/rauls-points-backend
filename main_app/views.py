@@ -113,7 +113,13 @@ class PointEventUpdate(APIView):
       raise PermissionDenied("Only admins can award points.")
     value = request.data.get('value')
     context = request.data.get('context', '')
-    if value is None or not str(value).isdigit():
+    def is_number(string):
+      try:
+        float(string)
+        return True
+      except ValueError:
+        return False
+    if value is None or not is_number(str(value)):
       return Response({"error": "Points value must be provided and must be an integer."}, status=400)
     event = PointEvent.objects.create(
       profile=profile,

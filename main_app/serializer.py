@@ -35,7 +35,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def get_total_points(self, obj):
-        return obj.pointevent_set.aggregate(total=Sum('value'))['total'] or 0
+        return obj.total_points()
 
 
 # class ProfileWriteSerializer(serializers.ModelSerializer):
