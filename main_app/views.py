@@ -62,14 +62,35 @@ class LoginUser(APIView):
 
 class VerifyUser(APIView):
   permission_classes = [permissions.IsAuthenticated]
-  def post(self,request):
-    user=User.objects.get(username=request.user)
-    refresh=RefreshToken.for_user(user)
-    return Response ({
+  
+  def post(self, request):
+    user = request.user
+
+    # try:
+    #     profile = user.profile  # requires related_name='profile'
+    # except Profile.DoesNotExist:
+    #     return Response({"error": "Profile not found."}, status=404)
+    try:
+      profile = Profile.objects.get(user=user)
+      profile_data = ProfileSerializer(profile).data
+    except Profile.DoesNotExist:
+      profile_data = None  # or return a default, or create one if needed
+
+    refresh = RefreshToken.for_user(user)
+    return Response({
         "refresh": str(refresh),
         "access": str(refresh.access_token),
-        "user": UserSerializer(user).data,
-      })
+        "profile": profile_data,
+    })
+  
+  # def post(self,request):
+  #   user=User.objects.get(username=request.user)
+  #   refresh=RefreshToken.for_user(user)
+  #   return Response ({
+  #       "refresh": str(refresh),
+  #       "access": str(refresh.access_token),
+  #       "user": UserSerializer(user).data,
+  #     })
 
 
 class ProfilesListView(generics.ListAPIView):
