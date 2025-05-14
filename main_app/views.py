@@ -13,6 +13,7 @@ from django.contrib.auth.models import User
 from .models import Profile, Cohort, PointEvent
 from .serializer import UserSerializer, CohortSerializer, PointEventSerializer, ProfileSerializer
 from django.shortcuts import get_object_or_404
+from rest_framework.permissions import AllowAny
 
 # Define the home view
 class Home(APIView):
@@ -95,7 +96,7 @@ class VerifyUser(APIView):
 
 class ProfilesListView(generics.ListAPIView):
   serializer_class = ProfileSerializer
-  permission_classes = [permissions.IsAuthenticated]
+  permission_classes = [AllowAny]
   
   def get_queryset(self):
         queryset = Profile.objects.filter(is_admin=False).select_related('user', 'cohort')
