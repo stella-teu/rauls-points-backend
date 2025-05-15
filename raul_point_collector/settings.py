@@ -29,7 +29,7 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://localhost:5173"]
 
 
-MEDIA_URL = '/media/'
+MEDIA_URL = 'media/'
 import os
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -153,6 +153,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
+STATICFILES_DIRS= [
+    os.path.join(BASE_DIR, 'static')
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
