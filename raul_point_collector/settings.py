@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 from dotenv import load_dotenv
 import dj_database_url
+import os
+
 
 load_dotenv()
 
@@ -36,7 +38,6 @@ CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://localhost:5173"]
 
 
 MEDIA_URL = 'media/'
-import os
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Application definition
