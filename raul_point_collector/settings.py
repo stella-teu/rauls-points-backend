@@ -30,7 +30,8 @@ CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://localhost:5173"]
 
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+import os
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Application definition
 
@@ -103,6 +104,7 @@ WSGI_APPLICATION = 'raul_point_collector.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+
 
 DATABASES = {
     'default': {
