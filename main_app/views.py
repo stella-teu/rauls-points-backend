@@ -144,8 +144,19 @@ class ProfileDetail(generics.RetrieveUpdateDestroyAPIView):
     profile.user.delete()
     instance.delete()
 
-class PointEventUpdate(APIView):
+class PointEventViewUpdate(APIView):
   permission_classes = [permissions.IsAuthenticated]
+  
+  def get(self, request, id):
+    try:
+      profile = Profile.objects.get(id=id)
+    except Profile.DoesNotExist:
+      return Response({"error": "Profile not found"}, status=404)
+    points = PointEvent.objects.filter(profile=profile)
+    serializer = PointEventSerializer(points, many=True)
+    return Response(serializer.data, status=200)
+    
+  
   def post(self, request, id):
     profile = get_object_or_404(Profile, id=id)
     request_profile = get_object_or_404(Profile, user=request.user)
