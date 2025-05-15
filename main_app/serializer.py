@@ -40,6 +40,14 @@ class ProfileSerializer(serializers.ModelSerializer):
             return obj.total_points_agg
         # Fall back to model method if no annotation
         return obj.total_points()
+    
+    def update(self, instance, validated_data):
+        user_data = validated_data.pop('User', None)
+        if user_data:
+            user = instance.user
+            user.username = user_data.get('username', user.username)
+            user.save()
+        return super().update(instance, validated_data)
 
 class PointEventSerializer(serializers.ModelSerializer):
     profile_username = serializers.CharField(source='profile.user.username', read_only=True)

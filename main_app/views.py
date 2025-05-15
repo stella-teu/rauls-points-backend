@@ -114,10 +114,17 @@ class ProfilesListView(generics.ListAPIView):
                 .order_by('-total_points_agg')
             )[:10]  # top 10
         return queryset
+      
+class IsOwnerOrReadOnly(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        # Otherwise, only allow if user owns the profile
+        return obj.user == request.user
 
 class ProfileDetail(generics.RetrieveUpdateDestroyAPIView):
   serializer_class = ProfileSerializer
-  permission_classes = [permissions.IsAuthenticated]
+  permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
   lookup_field = 'id'
   
   def get_queryset(self):
@@ -134,7 +141,7 @@ class ProfileDetail(generics.RetrieveUpdateDestroyAPIView):
   def perform_update(self, serializer):
     profile = self.get_object()
     if profile.user != self.request.user:
-      raise PermissionDenied[{"Message" : "You do not have permission to edit this profile"}]
+      raise PermissionDenied[{"message" : "You do not have permission to edit this profile"}]
     serializer.save()
   
   def perform_destroy(self, instance):
